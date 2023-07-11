@@ -2,7 +2,7 @@ from utils.stream import *
 import structures.linear_counter as lc
 
 def distinct_words():
-    m = 100000
+    m = 99991
     counter = lc.LinearCounter(m)
     counter2 = lc.LinearCounter(m)
     my_set = set()

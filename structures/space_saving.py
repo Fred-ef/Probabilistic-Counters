@@ -57,7 +57,7 @@ class SpaceSavingCounter:
 
         for i in range(self.size):
             count, eps, key = self.heap_pop()
-            count = self.updated_counters[key]        
+            count = self.updated_counters[key]
             hitters.append((count - eps, key))
         
         hitters.sort(reverse=True)

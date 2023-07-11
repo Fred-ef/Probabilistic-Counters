@@ -5,7 +5,6 @@ def heavy_hitters():
     k = 30
     m = 7*k
     space_saving_counter = ss.SpaceSavingCounter(m)
-    dizionario = {}
 
     x = mystream("data_sets/sample.csv")
     s = x.nextRecord ()
@@ -14,10 +13,6 @@ def heavy_hitters():
             words = x.tokenizedTweet()
             for word in words:
                 space_saving_counter.inc(word)
-                if word in dizionario:
-                    dizionario[word] += 1
-                else:
-                    dizionario[word] = 1
         
         s = x.nextRecord()
     

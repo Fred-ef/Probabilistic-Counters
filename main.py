@@ -7,7 +7,7 @@
 import tasks.countUsers as cu
 import tasks.heavyHitters as hh
 import tasks.distinctWords as dw
-import tasks.happyMessages as hm
+import tasks.messageLength as ml
 
 
 if __name__ == "__main__":
@@ -26,6 +26,6 @@ if __name__ == "__main__":
 
   print("\n#################################### TASK 4 ####################################\n")
   
-  hm.happy_messages()
+  ml.message_length()
 
   print("\n##################################### END ######################################\n")

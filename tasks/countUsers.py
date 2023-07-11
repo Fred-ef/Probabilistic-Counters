@@ -12,9 +12,8 @@ def count_users():
     afternoon_counter = lc.LinearCounter(m)
     evening_counter = lc.LinearCounter(m)
     night_counter = lc.LinearCounter(m)
-    users = set()
 
-    tweet_counter = 0
+    users_number = 0
     pos_morning_counter = 0
     pos_afternoon_counter = 0
     pos_evening_counter = 0
@@ -30,7 +29,6 @@ def count_users():
     while s is not None:
         
         users_counter.add(s[2])
-        users.add(s[2])
 
         match x.timeBin():
             case dayPart.MORNING:
@@ -49,7 +47,7 @@ def count_users():
 
         s = x.nextRecord ()
     
-    tweet_counter = users_counter.estimate_cardinality()
+    users_number = users_counter.estimate_cardinality()
     
 
     for index in range(m):
@@ -63,22 +61,22 @@ def count_users():
         neg_evening_counter += int(negative_counter.mask[index] and evening_counter.mask[index])
         neg_night_counter += int(negative_counter.mask[index] and night_counter.mask[index])
 
-    print("Estimated percentage of positive tweets in the morning, afternoon, evening, night: [", end = '')
-    print(str(round((pos_morning_counter / tweet_counter) * 100)) + str('%, '), end = '')
-    print(str(round((pos_afternoon_counter/tweet_counter) * 100)) + str('%, '), end = '')
-    print(str(round((pos_evening_counter/tweet_counter) * 100)) + str('%, '), end = '')
-    print(str(round((pos_night_counter/tweet_counter) * 100)) + str('%'), end = '')
+    print("Estimated percentage of positive tweets (over ALL tweets) in the morning, afternoon, evening, night: [", end = '')
+    print(str(round((pos_morning_counter / users_number) * 100)) + str('%, '), end = '')
+    print(str(round((pos_afternoon_counter/users_number) * 100)) + str('%, '), end = '')
+    print(str(round((pos_evening_counter/users_number) * 100)) + str('%, '), end = '')
+    print(str(round((pos_night_counter/users_number) * 100)) + str('%'), end = '')
     print("]")
 
-    print("Estimated total percentage of users: [", end = '')
-    print(str(round((neg_morning_counter / tweet_counter) * 100)) + str('%, '), end = '')
-    print(str(round( (neg_afternoon_counter / tweet_counter) * 100)) + str('%, '), end = '')
-    print(str(round((neg_evening_counter / tweet_counter) * 100)) + str('%, '), end = '')
-    print(str(round((neg_night_counter / tweet_counter) * 100)) + str('%'), end = '')
+    print("Estimated percentage of negative tweets (over ALL tweets) in the morning, afternoon, evening, night: [", end = '')
+    print(str(round((neg_morning_counter / users_number) * 100)) + str('%, '), end = '')
+    print(str(round( (neg_afternoon_counter / users_number) * 100)) + str('%, '), end = '')
+    print(str(round((neg_evening_counter / users_number) * 100)) + str('%, '), end = '')
+    print(str(round((neg_night_counter / users_number) * 100)) + str('%'), end = '')
     print("]")
 
 
     tot_counter = pos_morning_counter + pos_afternoon_counter + pos_evening_counter + pos_night_counter + neg_morning_counter + neg_afternoon_counter + neg_evening_counter + neg_night_counter
     
-    print("Total percentage: ", round((tot_counter / tweet_counter) * 100), end="")
+    print("Total percentage: ", round((tot_counter / users_number) * 100), end="")
     print("%")
